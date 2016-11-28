@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Http agent</title>
+</head>
+<body>
+  <div class="widget" width="300" height="300">
+      <p class="hostname">Hostname: </p>
+      <h2 class="counter">Response Time: </h2>
+  </div>
+
+  <script>
+  function getData() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/check', true);
+    xhr.timeout = 1000;
+    console.log("HUE");
+
+    xhr.onload = function() {
+      var jsonResponse = JSON.parse(this.responseText);
+      hostname = jsonResponse.target_hostname;
+      startTime = jsonResponse.response_time_start_transfer;
+      totalTime = jsonResponse.response_time_total;
+      console.log(jsonResponse);
+
+      document.querySelector(".hostname").innerHTML = "Hostname: " + hostname;
+      document.querySelector(".counter").innerHTML = "Response Time: " + totalTime;
+    }
+    xhr.onerror = function() {
+      console.log('Error ' + this.status);
+    }
+    xhr.ontimeout = function() {
+      console.log("timeout");
+    };
+    xhr.send(null);
+  };
+
+  setInterval(getData, 5000);
+  </script>
+</body>
+</html>
