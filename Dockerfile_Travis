@@ -1,0 +1,11 @@
+FROM golang:1.7
+
+MAINTAINER Andreev Vlad <andreevlad@gmail.com>
+
+COPY ./http-agent /
+
+WORKDIR /
+
+EXPOSE 8090
+
+CMD ["./http-agent"]
