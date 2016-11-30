@@ -24,22 +24,25 @@ const (
 	defaultPort         = "8090"
 	defaultDashboardURL = "http://localhost:8080/dashboard/v1/register"
 	defaultTarget       = "google.com:80"
+	defaultIPAddress    = "127.0.0.1"
 )
 
 func main() {
 	var (
-		addr  = envString("PORT", defaultPort)
-		durl  = envString("DASHBOARD_URL", defaultDashboardURL)
-		tHost = envString("TARGET_HOST", defaultTarget)
+		addr   = envString("PORT", defaultPort)
+		durl   = envString("DASHBOARD_URL", defaultDashboardURL)
+		tHost  = envString("TARGET_HOST", defaultTarget)
+		ipAddr = envString("IP_ADDRESS", defaultIPAddress)
 
-		httpAddr       = flag.String("httpAddr", "127.0.0.1:"+addr, "HTTP listen address")
+		httpAddr       = flag.String("httpAddr", "0.0.0.0:"+addr, "HTTP listen address")
 		dashboardURL   = flag.String("dashboardURL", durl, "Dashboard service URL")
 		targetHostname = flag.String("targetHost", tHost, "Target hostname and port")
+		listenIPAddr   = flag.String("ipAddr", ipAddr, "HTTP listen ip address")
 	)
 
 	flag.Parse()
 
-	err := agent.Register(*dashboardURL, "http://"+*httpAddr)
+	err := agent.Register(*dashboardURL, "http://"+*listenIPAddr+":"+addr)
 	if err != nil {
 		log.Fatal(err)
 	}

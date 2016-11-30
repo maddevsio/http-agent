@@ -27,9 +27,11 @@ export TARGET_HOST="github.com:443"
 ```
 Usage of ./http-agent:
   -dashboardURL string
-    	Dashboard service URL (default "http://localhost:8888/dashboard/v1/register")
+    	Dashboard service URL (default "http://localhost:8080/dashboard/v1/register")
   -httpAddr string
-    	HTTP listen address (default "127.0.0.1:8090")
+    	HTTP listen address (default "0.0.0.0:8090")
+  -ipAddr string
+    	HTTP listen ip address (default "127.0.0.1")
   -targetHost string
     	Target hostname and port (default "google.com:80")
 ```
