@@ -3,6 +3,7 @@ FROM golang:1.7
 MAINTAINER Andreev Vlad <andreevlad@gmail.com>
 
 COPY ./http-agent /
+COPY ./tmpl /
 
 WORKDIR /
 
