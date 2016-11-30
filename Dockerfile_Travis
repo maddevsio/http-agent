@@ -2,11 +2,10 @@ FROM golang:1.7
 
 MAINTAINER Andreev Vlad <andreevlad@gmail.com>
 
-COPY ./http-agent /
-COPY ./tmpl /
+COPY . /agent
 
-WORKDIR /
+WORKDIR /agent
 
 EXPOSE 8090
 
-CMD ["./http-agent"]
+CMD ["/agent/http-agent"]
