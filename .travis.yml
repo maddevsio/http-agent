@@ -22,6 +22,6 @@ deploy:
     ssh -o StrictHostKeyChecking=no -i ./sm-docker-key sm-docker@sm.maddevs.io "pull $IMAGE_NAME:v.$TRAVIS_BUILD_NUMBER" && 
     ssh -o StrictHostKeyChecking=no -i ./sm-docker-key sm-docker@sm.maddevs.io "rm -f sm-http-agent" || true && 
     ssh -o StrictHostKeyChecking=no -i ./sm-docker-key sm-docker@sm.maddevs.io "run -d --restart=always --name=sm-http-agent --net=sm
-    -p 127.0.0.1:9090:9090 -e IP_ADDRESS=sm.maddevs.io -e PORT=9090 -e DASHBOARD_URL=http://sm.maddevs.io/dashboard/v1/register -e TARGET_HOST=github.com:443 $IMAGE_NAME:v.$TRAVIS_BUILD_NUMBER"
+    -p 127.0.0.1:9090:9090 -e IP_ADDRESS=sm.maddevs.io -e PORT=9090 -e DASHBOARD_URL=http://sm.maddevs.io/dashboard/v1/register -e TARGET_HOST=github.com:80 $IMAGE_NAME:v.$TRAVIS_BUILD_NUMBER"
   on:
     go: 1.7.3
