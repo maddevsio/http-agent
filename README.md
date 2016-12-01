@@ -21,6 +21,7 @@ docker run -it --rm --name my-http-agent http-agent
 export PORT=8090
 export DASHBOARD_URL="http://localhost:8080/dashboard/v1/register"
 export TARGET_HOST="github.com:443"
+export IP_ADDRESS="10.10.10.10"
 ```
 
 ## Flag usage
