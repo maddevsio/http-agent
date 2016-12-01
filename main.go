@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net"
@@ -54,17 +56,22 @@ func main() {
 	e.GET("/check", func(c echo.Context) error {
 		conn, err := net.Dial("tcp", *targetHostname)
 		if err != nil {
-			log.Fatal(err)
+			return fmt.Errorf("dial error:", err)
 		}
-
 		defer conn.Close()
-		conn.Write([]byte("GET / HTTP/1.0\r\n\r\n"))
+		fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
 
 		startTime := time.Now()
 		oneByte := make([]byte, 1)
-		_, err = conn.Read(oneByte)
-		if err != nil {
-			log.Fatal(err)
+		for {
+			_, err = conn.Read(oneByte)
+			log.Println("read from buffer")
+			if err != nil {
+				if err != io.EOF {
+					return fmt.Errorf("read error:", err)
+				}
+				break
+			}
 		}
 		timeStart := time.Since(startTime).String()
 
